@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AutoskillTestRun.Pages.ContactPage"
+    xmlns:local="clr-namespace:AutoskillTestRun;assembly=AutoskillTestRun">
+
+    
+    <local:BasePage.Content>
+        <StackLayout 
+            Padding="15">
+            
+            <Label Text="Contact Name" />
+            <Entry Text="{Binding Contact.Name}"/>
+            
+            <Label Text="Contact Phone" />
+            <Entry Text="{Binding Contact.Phone}"/>
+            
+            <Button 
+                Text="Save" 
+                Command="{Binding SaveCommand}"/>
+
+            </StackLayout>
+    </local:BasePage.Content>
+</local:BasePage>
