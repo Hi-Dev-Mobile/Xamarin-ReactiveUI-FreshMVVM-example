@@ -92,7 +92,7 @@ namespace AutoskillTestRun. PageModels
 
         void HandleLoginCompleted ()
 		{
-			CoreMethods. DisplayAlert ( "Success", "Login has completed succesfully", "Close" );
+			CoreMethods. SwitchOutRootNavigation ( App. MainAppMasterDetailContainerName );
 		}
 	}
 }
