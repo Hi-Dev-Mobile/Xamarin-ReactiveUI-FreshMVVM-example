@@ -5,68 +5,70 @@ using AutoskillTestRun. Services;
 using System.Collections.ObjectModel;
 using AutoskillTestRun.Models;
 using FreshMvvm;
+using ReactiveUI;
 using Xamarin.Forms;
 using AutoskillTestRun.Pages;
+using System.Reactive.Disposables;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace AutoskillTestRun. PageModels
 {
 	//[AddINotifyPropertyChangedInterface]
-	public class HomePageModel: FreshBasePageModel
+	public class HomePageModel: BasePageModel
     {
 		IDatabaseService databaseService;
-              
+
+		CompositeDisposable disposeBag = new CompositeDisposable();
+
 		public ObservableCollection<Contact> Contacts { get; set; }
-
-		Contact selectedContact;
-		public Contact SelectedContact
-		{
-			get => selectedContact;
-			set {
-				selectedContact = value;
-				if (value != null) 
-					ContactSelected. Execute ( selectedContact );
-			}
-		}
-
-		public Command AddContact {
-			get => new Command ( async () => await CoreMethods. PushPageModel<ContactPageModel> () );
-		}
-
-		public Command<Contact> ContactSelected
-		{
-			get => new Command<Contact> ( async ( contact ) =>
-			{
-				var page = CurrentPage as HomePage;
-				page. DeselectListView ();
-				await CoreMethods. PushPageModel<ContactPageModel> ( contact );
-			});
-		}
   
 
-
-		public override void Init(object initData) 
-		{
-			Contacts = new ObservableCollection<Contact> ( databaseService. GetContacts () );
-		}
+		public ReactiveCommand AddCommand { get; private set; }
+		public ReactiveCommand SelectedCommand { get; private set; }
 
 
-		protected override void ViewIsAppearing ( object sender, EventArgs e )
-		{
-			base. ViewIsAppearing ( sender, e );
-		}
-
-
-		public override void ReverseInit ( object value )
-		{
-			var newContact = value as Contact;
-			if (!Contacts. Contains ( newContact ))
-				Contacts. Add ( newContact );
-		}
-        
-		// init
-		public HomePageModel (IDatabaseService databaseService)
+        Contact selectedContact;
+        public Contact SelectedContact
         {
-			this. databaseService = databaseService;
+            get => selectedContact;
+            set => this. RaiseAndSetIfChanged ( ref selectedContact, value );
         }
+
+        
+
+		public HomePageModel (IDatabaseService databaseService)
+		{
+			this. databaseService = databaseService;
+			Contacts = new ObservableCollection<Contact> ( databaseService. GetContacts () );
+            
+            AddCommand = ReactiveCommand
+                .Create ( async () => await CoreMethods. PushPageModel<ContactPageModel> ());
+                
+            SelectedCommand = ReactiveCommand
+                . Create<SelectedItemChangedEventArgs> (SelectedAction);
+        }
+             
+
+        public override void ReverseInit ( object value )
+        {
+            var newContact = value as Contact;
+            if (!Contacts. Contains ( newContact ))
+                Contacts. Add ( newContact );
+        }
+
+
+
+        async void SelectedAction (SelectedItemChangedEventArgs args)
+        {
+			var contact = args.SelectedItem as Contact;
+			
+			if (contact == null) return;
+			
+			var page = CurrentPage as HomePage;
+			page. DeselectListView ();
+			await CoreMethods. PushPageModel<ContactPageModel> ( contact );
+
+		}
     }
 }

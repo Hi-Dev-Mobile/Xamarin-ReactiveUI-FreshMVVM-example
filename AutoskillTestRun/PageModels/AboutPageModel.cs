@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace AutoskillTestRun. PageModels
 {
-	public class AboutPageModel: FreshBasePageModel
+	public class AboutPageModel: BasePageModel
     {
 		public ReactiveCommand CloseCommand { get; private set; }
 

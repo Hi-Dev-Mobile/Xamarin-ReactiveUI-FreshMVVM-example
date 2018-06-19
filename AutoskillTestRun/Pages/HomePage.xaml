@@ -3,12 +3,13 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="AutoskillTestRun.Pages.HomePage"
+    xmlns:behaviours="clr-namespace:AutoskillTestRun.Behaviors"
     xmlns:local="clr-namespace:AutoskillTestRun;assembly=AutoskillTestRun">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem 
             Name="Add" 
-            Command="{Binding AddContact}" 
+            Command="{Binding AddCommand}" 
             Order="Primary" 
             Priority="0" />
     </ContentPage.ToolbarItems>
@@ -20,6 +21,12 @@
                 x:Name="ListView"
                 ItemsSource="{Binding Contacts}" 
                 SelectedItem="{Binding SelectedContact}" >
+
+                <ListView.Behaviors>
+                    <behaviours:EventToCommandBehavior
+                        Command = "{Binding SelectedCommand}"
+                        EventName="ItemSelected"/>
+                </ListView.Behaviors>
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
