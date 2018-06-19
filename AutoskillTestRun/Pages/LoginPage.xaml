@@ -9,8 +9,6 @@
     <local:BasePage.Content>
         <StackLayout>
 
-            
-
             <Entry 
                 Placeholder="Email"
                 Text="{Binding Username}"
@@ -29,7 +27,6 @@
                 Command="{Binding LoginCommand}"
                 IsEnabled="{Binding CanLogin}"/>
 
-            
         </StackLayout>
     </local:BasePage.Content>
 </local:BasePage>

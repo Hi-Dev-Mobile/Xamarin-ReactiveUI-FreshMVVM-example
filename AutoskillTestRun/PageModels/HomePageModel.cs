@@ -10,7 +10,7 @@ using AutoskillTestRun.Pages;
 
 namespace AutoskillTestRun. PageModels
 {
-	[AddINotifyPropertyChangedInterface]
+	//[AddINotifyPropertyChangedInterface]
 	public class HomePageModel: FreshBasePageModel
     {
 		IDatabaseService databaseService;

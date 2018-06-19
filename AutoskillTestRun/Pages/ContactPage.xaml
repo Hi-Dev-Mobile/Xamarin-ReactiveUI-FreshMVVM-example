@@ -20,6 +20,10 @@
                 Text="Save" 
                 Command="{Binding SaveCommand}"/>
 
+            <Button 
+                Text="Open Menu" 
+                Command="{Binding OpenMenuCommand}"/>
+
             </StackLayout>
     </local:BasePage.Content>
 </local:BasePage>

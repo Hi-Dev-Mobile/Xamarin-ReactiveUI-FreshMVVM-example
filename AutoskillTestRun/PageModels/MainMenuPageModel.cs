@@ -1,16 +1,39 @@
 ﻿using System;
-using FreshMvvm;
+
 using Xamarin.Forms;
+using FreshMvvm;
+using ReactiveUI;
 
 namespace AutoskillTestRun. PageModels
 {
 	public class MainMenuPageModel: FreshBasePageModel
     {
-		public Command ShowAbout {
-			get => new Command ( async () => await CoreMethods. PushPageModel<AboutPageModel> ( null, modal: true ) );
-		}
+		public ReactiveCommand AboutCommand { get; private set; }
+		public ReactiveCommand LogoutCommand { get; private set; }
+		public ReactiveCommand OnboardingCommand { get; private set; }
         
 
-		public MainMenuPageModel () {}
+		public MainMenuPageModel () 
+		{
+			AboutCommand = ReactiveCommand. Create ( async () => await CoreMethods. PushPageModel<AboutPageModel> ( null, modal: true ) );
+			LogoutCommand = ReactiveCommand. Create ( LogoutUser );
+			OnboardingCommand = ReactiveCommand. Create ( DisplayOnboarding );
+
+        }
+
+
+        void LogoutUser () 
+        {
+			App. Current. Properties. Remove ( App. LoggedInUsernameAppProperty );
+			App. Current. Properties. Remove ( App. LoggedInPasswordAppProperty );
+			App. Current. SavePropertiesAsync ();
+			CoreMethods. SwitchOutRootNavigation ( App. LoginContainerName );
+		}
+
+        void DisplayOnboarding ()
+		{
+			App. ToggleMainMenu ( isPresented: false );
+			App. Current. MainPage = FreshPageModelResolver. ResolvePageModel<OnboardingPageModel> ();
+		}
     }
 }

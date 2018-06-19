@@ -27,19 +27,6 @@ namespace AutoskillTestRun. PageModels
     {
 		readonly FreshMvvmReactiveObject reactiveObject = new FreshMvvmReactiveObject ();
 
-        public BasePageModel ()
-        {
-           
-        }
-
-        
-		public bool SetProperty<T> (ref T storage, T value, [CallerMemberName] string propertyName = null)
-		{
-			var original = storage;
-			this. RaiseAndSetIfChanged ( ref storage, value, propertyName );
-			return !EqualityComparer<T>. Default. Equals ( original, value );
-		}
-
 
         ////////////////
 		/// Interfaces
@@ -50,6 +37,8 @@ namespace AutoskillTestRun. PageModels
         /// </summary>
 		public IObservable<Exception> ThrownExceptions => reactiveObject.ThrownExceptions;
 
+
+
         /// <summary>
         /// IReactiveObject
         /// </summary>
@@ -58,29 +47,42 @@ namespace AutoskillTestRun. PageModels
             remove => reactiveObject. PropertyChanging -= value;
 		}
         
+
         public void RaisePropertyChanging ( ReactiveUI. PropertyChangingEventArgs args )
         {
 			reactiveObject. RaisePropertyChanged ( propertyName: args. PropertyName );
             
         }
         
+
         public void RaisePropertyChanged ( PropertyChangedEventArgs args )
         {
 			reactiveObject. RaisePropertyChanged ( propertyName: args. PropertyName );
 			base. RaisePropertyChanged ( args. PropertyName );
         }
 
+
+
         /// <summary>
         /// IReactiveNotifyPropertyChanged
         /// </summary>
 		public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changing => reactiveObject.Changing;
-
 		public IObservable<IReactivePropertyChangedEventArgs<IReactiveObject>> Changed => reactiveObject.Changed;
 
-		public IDisposable SuppressChangeNotifications ()
+
+		public bool SetProperty<T> ( ref T storage, T value, [CallerMemberName] string propertyName = null )
 		{
-			var suppressor = reactiveObject. SuppressChangeNotifications ();
-			return new DisposableAction ( () => suppressor.Dispose());
+			var original = storage;
+			this. RaiseAndSetIfChanged ( ref storage, value, propertyName );
+			return !EqualityComparer<T>. Default. Equals ( original, value );
 		}
+
+
+        public IDisposable SuppressChangeNotifications ()
+        {
+            var suppressor = reactiveObject. SuppressChangeNotifications ();
+            return new DisposableAction ( () => suppressor.Dispose());
+        }
+
     }
 }

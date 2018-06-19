@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CarouselPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AutoskillTestRun.Pages.OnboardingPage">
+
+    
+    <ContentPage BackgroundColor="Navy">
+        <StackLayout 
+            BackgroundColor="Teal" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="FillAndExpand"
+            Margin="40, 50">
+            
+            <Label 
+                Text="Moo 1" 
+                TextColor="White" 
+                FontSize="50" 
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
+            
+            <Button 
+                Text="Dismiss" 
+                Command="{Binding DismissCommand}"
+                BackgroundColor="Navy" 
+                TextColor="White" 
+                BorderRadius="5" 
+                WidthRequest="100" 
+                Margin="20"
+                HorizontalOptions="Center" 
+                FontAttributes="Bold"/>
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage BackgroundColor="Navy">
+        <StackLayout 
+            BackgroundColor="Silver" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="FillAndExpand"
+            Margin="40, 50">
+            
+            <Label 
+                Text="Moo 2" 
+                TextColor="White" 
+                FontSize="50" 
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage BackgroundColor="Navy">
+        <StackLayout 
+            BackgroundColor="Green" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="FillAndExpand"
+            Margin="40, 50">
+            
+            <Label 
+                Text="Moo 3" 
+                TextColor="White" 
+                FontSize="50" 
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"/>
+            
+            <Button 
+                Text="Dismiss" 
+                Command="{Binding DismissCommand}"
+                BackgroundColor="Navy" 
+                TextColor="White" 
+                BorderRadius="5" 
+                WidthRequest="100" 
+                Margin="20"
+                HorizontalOptions="Center" 
+                FontAttributes="Bold"/>
+        </StackLayout>
+    </ContentPage>
+    
+</CarouselPage>

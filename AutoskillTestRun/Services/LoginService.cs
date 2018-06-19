@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System. Reactive;
 using System.Security.Authentication;
 using System.Reactive.Disposables;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 
 namespace AutoskillTestRun. Services
@@ -35,8 +36,14 @@ namespace AutoskillTestRun. Services
 				observer. OnNext ( loginAttempts );
 
 				if (userCredentials. ContainsKey ( username ))
-					if (userCredentials [username] == password)
-						observer. OnCompleted ();
+					if (userCredentials [username] == password) {
+                
+						App. Current. Properties [App. LoggedInUsernameAppProperty] = username;
+						App. Current. Properties [App. LoggedInPasswordAppProperty] = password;
+						App. Current. SavePropertiesAsync ();
+					    
+					    observer. OnCompleted ();
+                    }
 					else
 		    			observer. OnError ( new InvalidCredentialException ( IncorrectPasswordError ) );
 

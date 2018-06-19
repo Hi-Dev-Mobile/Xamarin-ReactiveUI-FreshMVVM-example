@@ -9,12 +9,25 @@
     <local:BasePage.Content>
         <StackLayout>
             <Button 
-                Command="{Binding ShowAbout}"   
+                Command="{Binding AboutCommand}"   
                 Text="About"
                 BackgroundColor="Navy"
                 TextColor="White"
                 Margin="15, 15, 15, 15"/>
-            
+
+            <Button 
+                Command="{Binding LogoutCommand}"   
+                Text="Log Out"
+                BackgroundColor="Navy"
+                TextColor="White"
+                Margin="15, 15, 15, 15"/>
+
+            <Button 
+                Command="{Binding OnboardingCommand}"   
+                Text="View Onboarding"
+                BackgroundColor="Navy"
+                TextColor="White"
+                Margin="15, 15, 15, 15"/>
             
         </StackLayout>
     </local:BasePage.Content>
