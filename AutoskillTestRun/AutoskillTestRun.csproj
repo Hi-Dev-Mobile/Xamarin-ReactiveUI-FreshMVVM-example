@@ -22,4 +22,7 @@
   <ItemGroup>
     <AndroidResource Include="Assets\menu%402x.png" />
   </ItemGroup>
+  <!-- <ItemGroup> -->
+    <!-- <Compile Remove="App.xaml.cs" /> -->
+  <!-- </ItemGroup> -->
 </Project>

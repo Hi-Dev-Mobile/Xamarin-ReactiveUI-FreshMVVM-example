@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using Xamarin. Forms;
 using Xamarin. Forms. Xaml;
@@ -8,24 +8,22 @@ using FreshMvvm;
 using AutoskillTestRun. Pages;
 using AutoskillTestRun. PageModels;
 using AutoskillTestRun. Services;
-                      
 
-[assembly: XamlCompilation ( XamlCompilationOptions. Compile )]
+
+//[assembly: XamlCompilation ( XamlCompilationOptions. Compile )]
 namespace AutoskillTestRun
 {
-    public partial class App : Application
+    public class App : Application
     {
-		public App ()
-		{
-			InitializeComponent ();
+        public App ()
+        {
+            FreshIOC. Container. Register<IDatabaseService, DatabaseService> ();
+            FreshIOC. Container. Register<ILoginService, LoginService> ();
 
-			FreshIOC. Container. Register<IDatabaseService, DatabaseService> ();
-			FreshIOC. Container. Register<ILoginService, LoginService> ();
-
-			var loginPage = FreshPageModelResolver. ResolvePageModel<LoginPageModel> ();
-			var navigationContainer = new FreshNavigationContainer ( loginPage, "LoginPageArea" );
-			navigationContainer. Title = "Login";
-			MainPage = navigationContainer;
+            var loginPage = FreshPageModelResolver. ResolvePageModel<LoginPageModel> ();
+            var navigationContainer = new FreshNavigationContainer ( loginPage, "LoginPageArea" );
+            navigationContainer. Title = "Login";
+            MainPage = navigationContainer;
 
         }
 
@@ -49,6 +47,6 @@ namespace AutoskillTestRun
             masterDetailsMultiple. Detail = detailPageArea;
 
             MainPage = masterDetailsMultiple;
-		}
+        }
     }
 }
