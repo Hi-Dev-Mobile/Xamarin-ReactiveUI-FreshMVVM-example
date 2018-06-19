@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="AutoskillTestRun.Pages.QuoteListPage"
     xmlns:local="clr-namespace:AutoskillTestRun;assembly=AutoskillTestRun"
+    xmlns:behaviors="clr-namespace:AutoskillTestRun.Behaviors"
     >
     
     <ContentPage.ToolbarItems>
         <ToolbarItem 
             Name="Add"  
-            Command="{Binding AddQuote}" 
+            Command="{Binding AddCommand}" 
             Order="Primary" 
             Priority="0" />
     </ContentPage.ToolbarItems>
@@ -19,7 +20,14 @@
         <ListView 
             x:Name="ListView"
             ItemsSource="{Binding Quotes}" 
-            SelectedItem="{Binding SelectedQuote}"  >
+            SelectedItem="{Binding SelectedQuote}" 
+            >
+
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior 
+                    Command="{Binding SelectedCommand}"
+                    EventName="ItemSelected"/>
+            </ListView.Behaviors>
             
             <ListView.ItemTemplate>
                 <DataTemplate>
