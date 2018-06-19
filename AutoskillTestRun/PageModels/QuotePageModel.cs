@@ -1,5 +1,6 @@
 ﻿using System;
 using FreshMvvm;
+using ReactiveUI;
 using PropertyChanged;
 using AutoskillTestRun.Services;
 using AutoskillTestRun.Models;
@@ -7,29 +8,26 @@ using Xamarin.Forms;
 
 namespace AutoskillTestRun. PageModels
 {
-	[AddINotifyPropertyChangedInterface]
 	public class QuotePageModel: FreshBasePageModel
     {
 		IDatabaseService databaseService;
 
 		public Quote Quote { get; set; }
-
-		public Command SaveCommand {
-			get => new Command ( async () =>
-			{
-				databaseService. UpdateQuote ( Quote );
-				await CoreMethods. PopPageModel ( Quote );
-			} );
-		}
-
         
-
+		public ReactiveCommand SaveCommand { get; private set; }
 
 
 		public QuotePageModel (IDatabaseService databaseService)
         {
 			this. databaseService = databaseService;
+
+			SaveCommand = ReactiveCommand. Create ( async () =>
+			  {
+				  databaseService. UpdateQuote ( Quote );
+				  await CoreMethods. PopPageModel ( Quote );
+			  } );
         }
+
 
 		public override void Init ( object initData )
 		{
