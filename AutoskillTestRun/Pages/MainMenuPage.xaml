@@ -10,7 +10,10 @@
         <StackLayout>
             <Button 
                 Command="{Binding ShowAbout}"   
-                Text="Show Modal"/>
+                Text="About"
+                BackgroundColor="Navy"
+                TextColor="White"
+                Margin="15, 15, 15, 15"/>
             
             
         </StackLayout>

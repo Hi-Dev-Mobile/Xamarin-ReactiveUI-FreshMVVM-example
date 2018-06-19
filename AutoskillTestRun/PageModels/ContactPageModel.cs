@@ -26,7 +26,9 @@ namespace AutoskillTestRun. PageModels
 		public ContactPageModel (IDatabaseService databaseService)
         {
 			this. databaseService = databaseService;
-			this. WhenAny ( action: HandleContactChanged, properties: o => o. Contact );
+			this. WhenAny
+				( action: HandleContactChanged,
+				 properties: o => o. Contact );
         }
 
 		public override void Init ( object initData )

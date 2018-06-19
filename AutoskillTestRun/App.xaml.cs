@@ -18,26 +18,37 @@ namespace AutoskillTestRun
 		public App ()
 		{
 			InitializeComponent ();
-   
+
 			FreshIOC. Container. Register<IDatabaseService, DatabaseService> ();
+			FreshIOC. Container. Register<ILoginService, LoginService> ();
 
-			var masterDetailsMultiple = new MasterDetailPage ();
-			var mainMenuPage = FreshPageModelResolver. ResolvePageModel<MainMenuPageModel> ();
-			mainMenuPage. Title = "Menu";
+			var loginPage = FreshPageModelResolver. ResolvePageModel<LoginPageModel> ();
+			var navigationContainer = new FreshNavigationContainer ( loginPage, "LoginPageArea" );
+			navigationContainer. Title = "Login";
+			MainPage = navigationContainer;
 
-			var masterPageArea = new FreshNavigationContainer ( mainMenuPage, "MasterPageArea" );
-			masterPageArea. Title = "Menu";
-			masterPageArea. Icon = "menu.png";
+        }
 
-			masterDetailsMultiple. Master = masterPageArea;
+        void LoadMain ()
+        {
 
-			var detailPageArea = new FreshTabbedNavigationContainer ( "DetailPageArea" ) { Title = "Home" };
-			detailPageArea. AddTab<HomePageModel> ( title: "Contacts", icon: "contacts.png", data: null );
-			detailPageArea. AddTab<QuoteListPageModel> ( title: "Quotes", icon: "document.png", data: null );
+            var masterDetailsMultiple = new MasterDetailPage ();
+            var mainMenuPage = FreshPageModelResolver. ResolvePageModel<MainMenuPageModel> ();
+            mainMenuPage. Title = "Menu";
 
-			masterDetailsMultiple. Detail = detailPageArea;
+            var masterPageArea = new FreshNavigationContainer ( mainMenuPage, "MasterPageArea" );
+            masterPageArea. Title = "Menu";
+            masterPageArea. Icon = "menu.png";
 
-			MainPage = masterDetailsMultiple;
+            masterDetailsMultiple. Master = masterPageArea;
+
+            var detailPageArea = new FreshTabbedNavigationContainer ( "DetailPageArea" ) { Title = "Home" };
+            detailPageArea. AddTab<HomePageModel> ( title: "Contacts", icon: "contacts.png", data: null );
+            detailPageArea. AddTab<QuoteListPageModel> ( title: "Quotes", icon: "document.png", data: null );
+
+            masterDetailsMultiple. Detail = detailPageArea;
+
+            MainPage = masterDetailsMultiple;
 		}
     }
 }
