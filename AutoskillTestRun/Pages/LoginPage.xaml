@@ -10,8 +10,9 @@
         <StackLayout>
 
             <Entry 
-                Placeholder="Email"
+                Placeholder="Username"
                 Text="{Binding Username}"
+                Keyboard="{StaticResource NoCapitalizationKeyboard}"
                 Margin="10,50,10,0"/>
 
             <Entry 

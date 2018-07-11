@@ -9,16 +9,17 @@ namespace AutoskillTestRun
 {
     public class Runner
     {
-		public static Runner<T> Create<T> (Func<T> func) 
-		{
-			return new Runner<T> ( func );
-		}
+		public Runner () {}
 
-        public Runner ()
+        public static Runner<T> Create<T> (Func<T> func) 
         {
+            return new Runner<T> ( func );
         }
     }
 
+    /// <summary>
+    /// Turns a standard func into an Observable
+    /// </summary>
 	public class Runner<T> : IObservable<T>
 	{
 		private readonly Func<T> func;
@@ -28,12 +29,14 @@ namespace AutoskillTestRun
 		private Subject<Exception> thrownExceptions { get; set; }
 		public IObservable<Exception> ThrownExceptions { get; set; }
 
+
 		internal Runner(Func<T> func)
 		{
 			this. func = func;
 			thrownExceptions = new Subject<Exception> ();
 			ThrownExceptions = thrownExceptions. AsObservable ();
 		}
+
 
         public void Execute ()
 		{

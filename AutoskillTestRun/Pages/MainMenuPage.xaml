@@ -20,14 +20,14 @@
                 Text="Log Out"
                 BackgroundColor="Navy"
                 TextColor="White"
-                Margin="15, 15, 15, 15"/>
+                Margin="15"/>
 
             <Button 
                 Command="{Binding OnboardingCommand}"   
                 Text="View Onboarding"
                 BackgroundColor="Navy"
                 TextColor="White"
-                Margin="15, 15, 15, 15"/>
+                Margin="15"/>
             
         </StackLayout>
     </local:BasePage.Content>

@@ -1,43 +1,22 @@
 ﻿using System;
 using System. ComponentModel;
+using System. Collections. Generic;
+using System. Runtime. CompilerServices;
+
 using FreshMvvm;
 using ReactiveUI;
-
-
-// from reactiveobject example
-
-using System. Collections. Generic;
-using System. Diagnostics;
-using System. Diagnostics. Contracts;
-using System. Reactive. Disposables;
-using System. Linq;
-using System. Linq. Expressions;
-using System. Reactive. Subjects;
-using System. Reflection;
-using System. Runtime. Serialization;
-using System. Runtime. CompilerServices;
-using System. Threading;
-using System. Reactive. Concurrency;
-
-using Splat;
 
 namespace AutoskillTestRun. PageModels
 {
 	public class BasePageModel: FreshBasePageModel, IHandleObservableErrors, IReactiveObject, IReactiveNotifyPropertyChanged<IReactiveObject>
     {
 		readonly FreshMvvmReactiveObject reactiveObject = new FreshMvvmReactiveObject ();
-
-
-        ////////////////
-		/// Interfaces
-		////////////////
- 
+  
         /// <summary>
         /// IHandleObservableErrors
         /// </summary>
 		public IObservable<Exception> ThrownExceptions => reactiveObject.ThrownExceptions;
-
-
+        
 
         /// <summary>
         /// IReactiveObject
@@ -60,8 +39,7 @@ namespace AutoskillTestRun. PageModels
 			reactiveObject. RaisePropertyChanged ( propertyName: args. PropertyName );
 			base. RaisePropertyChanged ( args. PropertyName );
         }
-
-
+        
 
         /// <summary>
         /// IReactiveNotifyPropertyChanged

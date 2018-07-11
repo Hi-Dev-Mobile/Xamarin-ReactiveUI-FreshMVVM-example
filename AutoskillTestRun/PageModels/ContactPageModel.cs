@@ -5,6 +5,7 @@ using AutoskillTestRun.Services;
 using AutoskillTestRun.Models;
 using Xamarin.Forms;
 using ReactiveUI;
+using System.Threading.Tasks;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -21,20 +22,12 @@ namespace AutoskillTestRun. PageModels
         public ContactPageModel (IDatabaseService databaseService)
         {
             this. databaseService = databaseService;
-            
-            // turn this back on if you want realtime updates
-			//this. WhenAny
-			    //( action: HandleContactChanged,
-                 //properties: o => o. Contact );
 
+			SaveCommand = ReactiveCommand
+				. CreateFromTask ( Save );
 
-			SaveCommand = ReactiveCommand. Create ( async () =>
-			{
-				databaseService. UpdateContact ( contact: Contact );
-				await CoreMethods. PopPageModel ( Contact );
-			} );
-
-			OpenMenuCommand = ReactiveCommand. Create ( () => App. ToggleMainMenu ( true ) );
+			OpenMenuCommand = ReactiveCommand
+				. Create ( () => App. ToggleMainMenu ( true ) );
         }
 
 
@@ -46,7 +39,11 @@ namespace AutoskillTestRun. PageModels
 				Contact = new Contact ();
 		}
 
-        // need here for model updater to work, also can do chores as needed
-		void HandleContactChanged ( string propertyName ) {}
+
+		async Task Save()
+		{
+			databaseService. UpdateContact ( contact: Contact );
+            await CoreMethods. PopPageModel ( Contact );
+		}
     }
 }

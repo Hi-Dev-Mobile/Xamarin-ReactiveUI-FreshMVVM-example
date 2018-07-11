@@ -20,8 +20,7 @@
         <ListView 
             x:Name="ListView"
             ItemsSource="{Binding Quotes}" 
-            SelectedItem="{Binding SelectedQuote}" 
-            >
+            SelectedItem="{Binding SelectedQuote}">
 
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior 

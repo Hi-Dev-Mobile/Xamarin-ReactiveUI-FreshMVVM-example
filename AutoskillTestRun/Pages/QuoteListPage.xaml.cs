@@ -1,9 +1,4 @@
-﻿using System;
-using System. Collections. Generic;
-
-using Xamarin. Forms;
-
-namespace AutoskillTestRun. Pages
+﻿namespace AutoskillTestRun. Pages
 {
 	public partial class QuoteListPage : BasePage
     {
@@ -12,6 +7,7 @@ namespace AutoskillTestRun. Pages
             InitializeComponent ();
         }
 
+		// need to manually deselect items for ListViews
 		public void DeselectListView()
 		{
 			ListView. SelectedItem = null;

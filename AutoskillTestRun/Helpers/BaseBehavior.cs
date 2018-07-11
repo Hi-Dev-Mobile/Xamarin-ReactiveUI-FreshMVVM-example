@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
+
 
 namespace AutoskillTestRun.Behaviors
 {
+	/// <summary>
+	/// used to make EventToCommandBehavior
+    /// </summary>
     public class BaseBehavior<T> : Behavior<T> where T : BindableObject
     {
         public T AssociatedObject { get; private set; }

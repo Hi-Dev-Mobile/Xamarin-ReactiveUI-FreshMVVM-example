@@ -1,9 +1,10 @@
-﻿using System;
-using Xamarin.Forms;
-
+﻿using Xamarin.Forms;
 
 namespace AutoskillTestRun
 {
+	/// <summary>
+    /// Bridge for FreshMVVM to work with XamForms
+    /// </summary>
 	public class BasePage: ContentPage
     {      
 		protected override void OnAppearing ()

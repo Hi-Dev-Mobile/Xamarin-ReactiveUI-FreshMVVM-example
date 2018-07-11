@@ -10,20 +10,23 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace AutoskillTestRun. Services
 {
+	/// <summary>
+    /// Mock Login Service
+    /// </summary>
 	public class LoginService: ILoginService
     {
 		static public string NoUserError = "User not found";
 		static public string IncorrectPasswordError = "Password Incorrect";
-
-
+        
 		Dictionary<string, string> userCredentials;
 
 		private int loginAttempts = 0;
 
+
         public LoginService ()
         {
 			userCredentials = new Dictionary<string, string> ();
-			userCredentials. Add ( "Kat", "1" );
+			userCredentials. Add ( "admin", "test" );
         }
 
 

@@ -1,5 +1,6 @@
-﻿using System;
-using ReactiveUI;
+﻿using ReactiveUI;
+
+
 namespace AutoskillTestRun. PageModels
 {
 	public class OnboardingPageModel: BasePageModel
@@ -13,8 +14,8 @@ namespace AutoskillTestRun. PageModels
 
 		void DismissPage ()
 		{
-			if (App. Current. Properties. ContainsKey ( App. LoggedInUsernameAppProperty ) &&
-				App. Current. Properties. ContainsKey ( App. LoggedInPasswordAppProperty ))
+			if (App. Current. Properties. ContainsKey ( App. LoggedInUsernameAppProperty ) 
+		     && App. Current. Properties. ContainsKey ( App. LoggedInPasswordAppProperty ))
 
 				CoreMethods. SwitchOutRootNavigation ( App. MainAppMasterDetailContainerName );
 

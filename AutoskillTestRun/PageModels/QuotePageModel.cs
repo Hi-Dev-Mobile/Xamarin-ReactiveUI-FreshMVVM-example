@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+
 using FreshMvvm;
 using ReactiveUI;
-using PropertyChanged;
+
 using AutoskillTestRun.Services;
 using AutoskillTestRun.Models;
-using Xamarin.Forms;
+
 
 namespace AutoskillTestRun. PageModels
 {
@@ -21,11 +22,8 @@ namespace AutoskillTestRun. PageModels
         {
 			this. databaseService = databaseService;
 
-			SaveCommand = ReactiveCommand. Create ( async () =>
-			  {
-				  databaseService. UpdateQuote ( Quote );
-				  await CoreMethods. PopPageModel ( Quote );
-			  } );
+			SaveCommand = ReactiveCommand
+				. CreateFromTask ( Save );
         }
 
 
@@ -34,6 +32,13 @@ namespace AutoskillTestRun. PageModels
 			Quote = initData as Quote;
 			if (Quote == null)
 				Quote = new Quote ();
+		}
+
+
+		async Task Save()
+		{
+			databaseService. UpdateQuote ( Quote );
+            await CoreMethods. PopPageModel ( Quote );
 		}
 	}
 }

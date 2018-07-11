@@ -1,10 +1,12 @@
-﻿using System;
-using AutoskillTestRun.Models;
-using System.Collections.Generic;
+﻿using AutoskillTestRun. Models;
+using System. Collections. Generic;
 
 
 namespace AutoskillTestRun. Services
 {
+	/// <summary>
+    /// Mock Database Service
+    /// </summary>
 	public class DatabaseService: IDatabaseService
     {
 		private List<Contact> contacts;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System. Reactive. Disposables;
 
-using PropertyChanged;
-using FreshMvvm;
 using ReactiveUI;
 
 using AutoskillTestRun. Services;
@@ -10,13 +8,12 @@ using AutoskillTestRun. Services;
 
 namespace AutoskillTestRun. PageModels
 {
-	[AddINotifyPropertyChangedInterface]
 	public class LoginPageModel : BasePageModel
-	{
-
+	{      
 		ILoginService loginService;
 		CompositeDisposable disposeBag = new CompositeDisposable ();
 
+        // this design pattern works with the ReactiveUI and WhenAnyValue to notify about UI updates
 		string _username;
 		public string Username { get => _username; set => this. RaiseAndSetIfChanged ( ref _username, value ); }
 
@@ -32,8 +29,9 @@ namespace AutoskillTestRun. PageModels
 		public LoginPageModel ( ILoginService loginService )
 		{
 			this. loginService = loginService;
-
-
+            
+            // when either of the properties are changed
+            // it fires off the selector
 			this
 				. WhenAnyValue (
 					property1: pm => pm. Username,
@@ -42,10 +40,8 @@ namespace AutoskillTestRun. PageModels
 				. ToProperty ( this, pm => pm. CanLogin, out _canLogin )
 				. DisposeWith ( disposeBag );
                 
-            
 			LoginCommand = ReactiveCommand.Create (AttemptLogin);
-
-            
+   
 			//// Runner Test /////
 			var runner = Runner. Create<bool> ( () => true );
 			var obs = runner
@@ -80,14 +76,10 @@ namespace AutoskillTestRun. PageModels
 
 		void HandleLoginError(Exception error)
 		{
-			if (error. Message == LoginService. NoUserError)
-				CoreMethods. DisplayAlert ( "Login Error", LoginService. NoUserError, "Close" );
-
-			else if (error. Message == LoginService. IncorrectPasswordError)
-				CoreMethods. DisplayAlert ( "Login Error", LoginService. IncorrectPasswordError, "Close" );
-
-			else
-                CoreMethods. DisplayAlert ( "Login Error", "Unknown error, please try again later.", "Close" );
+			// could throw into a lambda on the Subscribe onError
+            // wanted to show example for when more complex 
+            // error handling is needed
+			error. DisplayAlert ( this );
 		}
 
         void HandleLoginCompleted ()

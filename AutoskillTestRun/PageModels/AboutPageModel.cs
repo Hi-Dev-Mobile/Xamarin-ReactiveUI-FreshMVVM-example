@@ -1,8 +1,4 @@
-﻿using System;
-using FreshMvvm;
-using Xamarin.Forms;
-using ReactiveUI;
-
+﻿using ReactiveUI;
 
 namespace AutoskillTestRun. PageModels
 {

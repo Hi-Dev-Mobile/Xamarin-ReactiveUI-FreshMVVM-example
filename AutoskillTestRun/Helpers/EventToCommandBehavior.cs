@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace AutoskillTestRun.Behaviors
 {
+	/// <summary>
+    /// Used to bind ReactiveCommands in PageModel to c# events in xaml
+	/// example: <ListView ItemSelected="{Binding ItemSelected}"/>
+    /// </summary>
     public class EventToCommandBehavior : BaseBehavior<View>
     {
         Delegate eventHandler;
@@ -17,26 +19,24 @@ namespace AutoskillTestRun.Behaviors
 
         public string EventName
         {
-            get { return (string)GetValue(EventNameProperty); }
-            set { SetValue(EventNameProperty, value); }
+            get => (string)GetValue(EventNameProperty); 
+            set => SetValue(EventNameProperty, value); 
         }
+
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty); 
+            set => SetValue(CommandProperty, value); 
         }
+  
 
-
-        //EventItemToMenuItemConverter _converter = new EventItemToMenuItemConverter();
         public IValueConverter Converter
         {
-            get
-            {
-                return (IValueConverter)GetValue(InputConverterProperty);
-            }
-            set { SetValue(InputConverterProperty, value); }
+            get => (IValueConverter)GetValue(InputConverterProperty);
+            set => SetValue(InputConverterProperty, value); 
         }
+
 
         protected override void OnAttachedTo(View bindable)
         {
@@ -44,24 +44,22 @@ namespace AutoskillTestRun.Behaviors
             RegisterEvent(EventName);
         }
 
-        protected override void OnDetachingFrom(View bindable)
+        
+		protected override void OnDetachingFrom(View bindable)
         {
             DeregisterEvent(EventName);
             base.OnDetachingFrom(bindable);
         }
 
-        void RegisterEvent(string name)
+        
+		void RegisterEvent(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(name)) return;
 
             EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
             if (eventInfo == null)
-            {
-                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
-            }
+				throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
+            
             MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
             eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
             eventInfo.AddEventHandler(AssociatedObject, eventHandler);
@@ -69,20 +67,14 @@ namespace AutoskillTestRun.Behaviors
 
         void DeregisterEvent(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(name)) return;
 
-            if (eventHandler == null)
-            {
-                return;
-            }
+            if (eventHandler == null) return;
+
             EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-            if (eventInfo == null)
-            {
-                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't de-register the '{0}' event.", EventName));
-            }
+			if (eventInfo == null) 
+				throw new ArgumentException(string.Format("EventToCommandBehavior: Can't de-register the '{0}' event.", EventName));
+			
             eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
             eventHandler = null;
         }
@@ -91,42 +83,28 @@ namespace AutoskillTestRun.Behaviors
         {
             object resolvedParameter = new object();
 
-            if (Command == null)
-                return;
+            if (Command == null) return;
             
             else if (Converter != null)
-            {
                 resolvedParameter = Converter.Convert(eventArgs, typeof(object), null, null);
-            }
             else
             {
                 var arg = eventArgs as ItemTappedEventArgs;
                 if (arg == null)
-                {
                     resolvedParameter = eventArgs;
-                }
                 else
-                {
                     resolvedParameter = arg.Item;
-                }
-
-                //resolvedParameter = eventArgs;
             }
 
             if (Command.CanExecute(resolvedParameter))
-            {
                 Command.Execute(resolvedParameter);
-            }
         }
 
 
         static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var behavior = (EventToCommandBehavior)bindable;
-            if (behavior.AssociatedObject == null)
-            {
-                return;
-            }
+            if (behavior.AssociatedObject == null) return;
 
             string oldEventName = (string)oldValue;
             string newEventName = (string)newValue;

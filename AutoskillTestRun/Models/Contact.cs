@@ -1,8 +1,10 @@
-﻿using System;
-using PropertyChanged;
+﻿using PropertyChanged;
 
 namespace AutoskillTestRun. Models
 {
+	/// <summary>
+    /// attribute needed to update models automatically
+    /// </summary>
 	[AddINotifyPropertyChangedInterface]
     public class Contact
     {

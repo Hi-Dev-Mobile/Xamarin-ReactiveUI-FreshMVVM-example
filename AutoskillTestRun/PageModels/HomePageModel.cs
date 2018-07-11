@@ -1,20 +1,15 @@
-﻿using PropertyChanged;
-using System;
+﻿using System. Collections. ObjectModel;
+using System. Reactive. Disposables;
 
-using AutoskillTestRun. Services;
-using System.Collections.ObjectModel;
-using AutoskillTestRun.Models;
-using FreshMvvm;
+using Xamarin. Forms;
 using ReactiveUI;
-using Xamarin.Forms;
-using AutoskillTestRun.Pages;
-using System.Reactive.Disposables;
-using System.Reactive;
-using System.Reactive.Linq;
+
+using AutoskillTestRun. Models;
+using AutoskillTestRun. Pages;
+using AutoskillTestRun. Services;
 
 namespace AutoskillTestRun. PageModels
 {
-	//[AddINotifyPropertyChangedInterface]
 	public class HomePageModel: BasePageModel
     {
 		IDatabaseService databaseService;
@@ -36,7 +31,6 @@ namespace AutoskillTestRun. PageModels
         }
 
         
-
 		public HomePageModel (IDatabaseService databaseService)
 		{
 			this. databaseService = databaseService;
@@ -56,8 +50,7 @@ namespace AutoskillTestRun. PageModels
             if (!Contacts. Contains ( newContact ))
                 Contacts. Add ( newContact );
         }
-
-
+        
 
         async void SelectedAction (SelectedItemChangedEventArgs args)
         {
@@ -66,6 +59,7 @@ namespace AutoskillTestRun. PageModels
 			if (contact == null) return;
 			
 			var page = CurrentPage as HomePage;
+            // see line12 in HomePage.xaml.cs
 			page. DeselectListView ();
 			await CoreMethods. PushPageModel<ContactPageModel> ( contact );
 

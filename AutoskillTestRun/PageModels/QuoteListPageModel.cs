@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+
 using ReactiveUI;
 using Xamarin.Forms;
 
@@ -23,8 +24,7 @@ namespace AutoskillTestRun. PageModels
 			set => this. RaiseAndSetIfChanged ( ref selectedQuote, value );
 		}
 
-
-
+        
 		public QuoteListPageModel (IDatabaseService databaseService)
         {
 			this.databaseService = databaseService;
@@ -37,10 +37,11 @@ namespace AutoskillTestRun. PageModels
                 . Create<SelectedItemChangedEventArgs> ( SelectedAction );
         }
   
-        
-        public override void ReverseInit ( object value )
+  
+        // returns the object back to whoever pushed the pageModel
+        public override void ReverseInit ( object returnedData )
         {
-            var newQuote = value as Quote;
+            var newQuote = returnedData as Quote;
 
             if (!Quotes. Contains ( newQuote ))
                 Quotes. Add ( newQuote );
@@ -52,7 +53,7 @@ namespace AutoskillTestRun. PageModels
 			var quote = args. SelectedItem as Quote;
 			if (quote == null) return;
 			
-			var page = this. CurrentPage as QuoteListPage;
+			var page = CurrentPage as QuoteListPage;
 			page. DeselectListView ();
 			await CoreMethods. PushPageModel<QuotePageModel> ( quote );
 		}

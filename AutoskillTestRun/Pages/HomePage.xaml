@@ -27,7 +27,10 @@
                         Command = "{Binding SelectedCommand}"
                         EventName="ItemSelected"/>
                 </ListView.Behaviors>
-                
+
+
+<!--                the cell can and should be seperated for-->
+<!--                more complex use cases                  -->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell 
