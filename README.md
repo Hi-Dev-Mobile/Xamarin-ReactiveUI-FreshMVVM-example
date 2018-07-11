@@ -10,6 +10,9 @@ Make sure to install VisualStudio. Our version is currently 2017 7.5 preview, bu
 
 If you're running on simulators existing bundleId should be fine. Else replace bundleId with your own identifier.
 
+un: admin
+pw: test
+
 ## Built With
 
 * [XamForms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/) - Cross platform application base
@@ -34,3 +37,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 This project implements our basic preferred coding style. Planning on formalized a doc in the near future.
 
 A version of this that hooks into Amazons DynmoDb and Congnito services will be in a future branch.
+
+Apologies for the hideous colors.
