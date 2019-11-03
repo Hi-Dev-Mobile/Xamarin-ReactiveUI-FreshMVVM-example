@@ -1,4 +1,4 @@
-# Autoskill Test
+# ReactiveUI and FreshMVVM Example
 
 Testbed for Xamrin Form projects using .netStandard2, Xamarin Forms, ReactiveUI, and FreshMVVM.
 
