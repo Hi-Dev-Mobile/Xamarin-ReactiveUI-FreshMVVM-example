@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using AutoskillTestRun.Models;
 using AutoskillTestRun.Pages;
 using AutoskillTestRun.Services;
+using System. Reactive;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -15,8 +16,8 @@ namespace AutoskillTestRun. PageModels
 
 		public ObservableCollection<Quote> Quotes { get; set; }
 
-		public ReactiveCommand AddCommand { get; private set; }
-		public ReactiveCommand SelectedCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> AddCommand { get; private set; }
+		public ReactiveCommand<SelectedItemChangedEventArgs, Unit> SelectedCommand { get; private set; }
 
 		Quote selectedQuote;
 		public Quote SelectedQuote {
@@ -31,7 +32,7 @@ namespace AutoskillTestRun. PageModels
 			Quotes = new ObservableCollection<Quote> ( databaseService. GetQuotes () );         
 
             AddCommand = ReactiveCommand
-                . Create ( async () => await CoreMethods. PushPageModel<QuotePageModel> () );
+                . CreateFromTask ( async () => await CoreMethods. PushPageModel<QuotePageModel> () );
 
             SelectedCommand = ReactiveCommand
                 . Create<SelectedItemChangedEventArgs> ( SelectedAction );

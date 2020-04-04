@@ -6,6 +6,7 @@ using AutoskillTestRun.Models;
 using Xamarin.Forms;
 using ReactiveUI;
 using System.Threading.Tasks;
+using System. Reactive;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -16,8 +17,8 @@ namespace AutoskillTestRun. PageModels
 
 		public Contact Contact { get; set; }
 
-		public ReactiveCommand SaveCommand { get; private set; }
-		public ReactiveCommand OpenMenuCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> SaveCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> OpenMenuCommand { get; private set; }
 
         public ContactPageModel (IDatabaseService databaseService)
         {

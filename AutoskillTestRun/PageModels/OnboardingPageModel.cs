@@ -1,11 +1,12 @@
-﻿using ReactiveUI;
+﻿using System. Reactive;
+using ReactiveUI;
 
 
 namespace AutoskillTestRun. PageModels
 {
 	public class OnboardingPageModel: BasePageModel
     {
-		public ReactiveCommand DismissCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> DismissCommand { get; private set; }
 
         public OnboardingPageModel ()
         {

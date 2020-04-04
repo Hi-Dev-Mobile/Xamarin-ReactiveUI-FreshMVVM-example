@@ -1,18 +1,19 @@
-﻿using FreshMvvm;
+﻿using System. Reactive;
+using FreshMvvm;
 using ReactiveUI;
 
 namespace AutoskillTestRun. PageModels
 {
 	public class MainMenuPageModel: FreshBasePageModel
     {
-		public ReactiveCommand AboutCommand { get; private set; }
-		public ReactiveCommand LogoutCommand { get; private set; }
-		public ReactiveCommand OnboardingCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> AboutCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> OnboardingCommand { get; private set; }
         
 
 		public MainMenuPageModel () 
 		{
-			AboutCommand = ReactiveCommand. Create ( async () => await CoreMethods. PushPageModel<AboutPageModel> ( null, modal: true ) );
+			AboutCommand = ReactiveCommand. CreateFromTask ( async () => await CoreMethods. PushPageModel<AboutPageModel> ( null, modal: true ) );
 			LogoutCommand = ReactiveCommand. Create ( LogoutUser );
 			OnboardingCommand = ReactiveCommand. Create ( DisplayOnboarding );
         }

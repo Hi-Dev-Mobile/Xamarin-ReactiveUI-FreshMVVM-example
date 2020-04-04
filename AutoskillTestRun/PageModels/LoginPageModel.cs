@@ -4,7 +4,7 @@ using System. Reactive. Disposables;
 using ReactiveUI;
 
 using AutoskillTestRun. Services;
-
+using System. Reactive;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -23,7 +23,7 @@ namespace AutoskillTestRun. PageModels
 		ObservableAsPropertyHelper<bool> _canLogin;
 		public bool CanLogin { get =>  _canLogin?.Value ?? false; }
 
-		public ReactiveCommand LoginCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> LoginCommand { get; private set; }
 
 
 		public LoginPageModel ( ILoginService loginService )

@@ -7,6 +7,7 @@ using ReactiveUI;
 using AutoskillTestRun. Models;
 using AutoskillTestRun. Pages;
 using AutoskillTestRun. Services;
+using System. Reactive;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -19,8 +20,8 @@ namespace AutoskillTestRun. PageModels
 		public ObservableCollection<Contact> Contacts { get; set; }
   
 
-		public ReactiveCommand AddCommand { get; private set; }
-		public ReactiveCommand SelectedCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> AddCommand { get; private set; }
+		public ReactiveCommand<SelectedItemChangedEventArgs, Unit> SelectedCommand { get; private set; }
 
 
         Contact selectedContact;
@@ -37,7 +38,7 @@ namespace AutoskillTestRun. PageModels
 			Contacts = new ObservableCollection<Contact> ( databaseService. GetContacts () );
             
             AddCommand = ReactiveCommand
-                .Create ( async () => await CoreMethods. PushPageModel<ContactPageModel> ());
+                .CreateFromTask ( async () => await CoreMethods. PushPageModel<ContactPageModel> ());
                 
             SelectedCommand = ReactiveCommand
                 . Create<SelectedItemChangedEventArgs> (SelectedAction);

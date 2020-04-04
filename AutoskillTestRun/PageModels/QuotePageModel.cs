@@ -5,7 +5,7 @@ using ReactiveUI;
 
 using AutoskillTestRun.Services;
 using AutoskillTestRun.Models;
-
+using System. Reactive;
 
 namespace AutoskillTestRun. PageModels
 {
@@ -15,7 +15,7 @@ namespace AutoskillTestRun. PageModels
 
 		public Quote Quote { get; set; }
         
-		public ReactiveCommand SaveCommand { get; private set; }
+		public ReactiveCommand<Unit, Unit> SaveCommand { get; private set; }
 
 
 		public QuotePageModel (IDatabaseService databaseService)
